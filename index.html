@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Zenefits Places</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="home.js" type="text/javascript"></script>
+
+</head>
+
+<body style="font-family: 'PT Sans', sans-serif;">
+    <div class="modal fade modal-fullscreen force-fullscreen" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-center">Welcome to Places</h4><br/>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 alignrow">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="">Find</span>
+                                <input type="text" class="form-control" id="modalsearch" placeholder="Coffee shops, Retautants, Gas Stations" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 alignrow">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="">Near</span>
+                                <input type="text" class="form-control" id="modallocation" placeholder="Location" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6 alignrow">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="">in radius</span>
+                                <select class="selectpicker form-control" id="modaldistance">
+    								<option value="5" selected="true">5 miles</option>
+    								<option value="10">10 miles</option>
+    								<option value="20" >20 miles</option>
+    								<option value="50">50 miles</option>
+ 								</select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-sm-12"><a onclick="ModalSearchClick()" class="btn btn-block btn-primary btn-info">Search <span class="glyphicon glyphicon-search"></span></a></div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div class="container-fluid innerContainer">
+        <div class="row innerContainer">
+            <div id="lstColumn" class="col-sm-4 innerContainer">
+                <div class="container-fluid panelContainer" style="background-color: #4db6ac">
+                    <div class="row innerContainer">
+                        <div class="input-group " style="margin:5px">
+                            <input type="text" class="form-control" id="search" placeholder="Coffee shops, Retautants, Gas Stations" />
+                            <span class="input-group-addon " style="padding: 0px" id="">
+	            			<a onclick="SearchClick()" class="btn btn-block btn-primary btn-info"><span class="glyphicon glyphicon-search"></span></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row innerContainer" style="padding:5px">
+                        <div class="col-sm-6 innerContainer">
+                            <input type="text" class="form-control filterInputSize" id="location" placeholder="Location" />
+                        </div>
+                        <div class="col-sm-1 innerContainer"></div>
+                        <div class="col-sm-5 innerContainer">
+                            <select class="selectpicker form-control filterInputSize" id="distance">
+								<option value="5" selected="true">5 miles</option>
+								<option value="10">10 miles</option>
+								<option value="20" >20 miles</option>
+								<option value="50">50 miles</option>
+							</select>
+                        </div>
+                    </div>
+                </div>
+                <div id="lstContainer" class="container-fluid innerContainer">
+                    <div class="row innerContainer">
+                        <div class="col-sm-12 innerContainer" id="detailContainer">
+                            <div class="container-fluid innerContainer">
+                                <div id="detailHeader" class="row innerContainer panelContainer">
+                                    <div class="col-sm-4 innerContainer">
+                                        <img id="detailIcon" src="" alt="Image Not Found" title="Image Not Found"></img>
+                                    </div>
+                                    <div style="position: relative;" class="col-sm-8 innerContainer">
+                                        <div id="detailName"></div>
+                                        <span class="stars" id="detailRating"></span>
+                                        <div id="detailOpenNow"></div>
+
+
+                                        <a style="position: absolute; right: 5px; top: 5px; color: white" onClick="CloseDesc()"><i class="fa fa-4x fa-chevron-left" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                <div id="deailContact" class="row innerContainer panelContainer">
+                                    <div class="col-sm-12 innerContainer">
+                                        <div id="detailAddress"></div>
+                                    </div>
+                                </div>
+                                <div class="row innerContainer panelContainer">
+                                    <ul id="detailImages" class="images ">
+                                        <li><img src="" alt="Image Not Found" title="Image Not Found"></img>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="row innerContainer panelContainer">
+                                    <div><b>Reviews:</b></div>
+                                    <ul id="reviewUl">
+                                        <li><i>No reviews available.</i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row innerContainer panelContainer">
+                            <ul id="placeslist"></ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="mapColumn" class="col-sm-8">
+                <div class="container-fluid innerContainer">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwxatzzqGNtRsa-ncsN_Y4ISgjZ8N-eQg&libraries=places&callback=initMap" async defer></script>
+
+</html>
